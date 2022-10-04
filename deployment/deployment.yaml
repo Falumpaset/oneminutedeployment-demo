@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  namespace: oneminutedeployment
+  labels:
+    app: hello-world
+spec:
+  containers:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:    
+      containers:
+      - name: helloworld
+        image: ghcr.io/falumpaset/runtime-node:v0.0.6
+        ports:
+        - containerPort: 3000
+        env: 
+          - name: PORT
+            value: "3000"
+          - name: IMAGE
+            value: "IMAGE_TAG"
+          - name: REGISTRY_USER
+            value: "REGISTRY_USER_PLACEHOLDER"
+          - name: REGISTRY_PASSWORD
+            value: "REGISTRY_PASSWORD_PLACEHOLDER"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        command: ["../load_application.sh"]
+        args: ["yarn", "start"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-service
+  namespace: oneminutedeployment  
+  labels:
+    app: hello-world
+spec:
+  selector:
+    app: hello-world
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 3000
+
