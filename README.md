@@ -1,8 +1,8 @@
 # The One Minute Deployment
 The goal of this repo to work as a proof of concept for the proposed [One Minute Deployment](https://blog.devgenius.io/the-one-minute-deployment-rethinking-kubernetes-deployments-3f6785918855).
 
-However, this is a revised iteration of the initial idea which I discuss [here]().
-//TODO
+However, this is a revised iteration of the initial idea which I discuss [here](https://blog.devgenius.io/how-we-further-improve-the-containerless-deployment-47a2117f80b).
+
 ## Try it yourself
 In this tutorial, you will deploy a simple NodeJS application to your cluster. The application outputs Hello World to your brower through Kubernetes port-forwarding.
 Afterwards, you will alter the deployment to showcase the simplicity and speed of our approach.
